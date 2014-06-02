@@ -14,17 +14,6 @@
     <context:annotation-config/>
     <context:spring-configured/>
 
-<!--     Data Source Declaration
-    <bean id="DataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-        <property name="driverClass" value="com.ibm.as400.access.AS400JDBCDriver" />
-        <property name="jdbcUrl" value="jdbc:as400://172.18.10.112:446/Takaful" />
-        <property name="user" value="tmdittis" />
-        <property name="password" value="tmdittis" />
-        <property name="maxPoolSize" value="2" />
-        <property name="maxStatements" value="0" />
-        <property name="minPoolSize" value="1" />
-    </bean> -->
-
     <!-- Data Source Declaration -->
     <bean id="DataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
         <property name="driverClass" value="com.mysql.jdbc.Driver" />
@@ -35,7 +24,6 @@
         <property name="maxStatements" value="0" />
         <property name="minPoolSize" value="1" />
     </bean>
-
 
     <!-- Session Factory Declaration -->
     <bean id="SessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
