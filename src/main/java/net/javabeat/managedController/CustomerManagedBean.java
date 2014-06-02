@@ -79,6 +79,26 @@ public class CustomerManagedBean implements Serializable {
  
         return ERROR;
     }
+    
+    /**
+     * Delete Customer 
+     *
+     * @return String - Response Message
+     */
+    public String deleteCustomer() {
+        try {
+            Customer customer = new Customer();
+            customer.setId(getId());
+            customer.setName(getName());
+            customer.setSurname(getSurname());
+            getCustomerService().deleteCustomer(customer);
+            return SUCCESS;
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }   
+ 
+        return ERROR;
+    }
  
     /**
      * Reset Fields
