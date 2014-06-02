@@ -41,7 +41,7 @@ public class CustomerManagedBean implements Serializable {
     private String surname;
  
     /**
-     * Add Customer
+     * Add Customer 
      *
      * @return String - Response Message
      */
@@ -52,6 +52,26 @@ public class CustomerManagedBean implements Serializable {
             customer.setName(getName());
             customer.setSurname(getSurname());
             getCustomerService().addCustomer(customer);
+            return SUCCESS;
+        } catch (DataAccessException e) {
+            e.printStackTrace();
+        }   
+ 
+        return ERROR;
+    }
+    
+    /**
+     * Update Customer 
+     *
+     * @return String - Response Message
+     */
+    public String updateCustomer() {
+        try {
+            Customer customer = new Customer();
+            customer.setId(getId());
+            customer.setName(getName());
+            customer.setSurname(getSurname());
+            getCustomerService().updateCustomer(customer);
             return SUCCESS;
         } catch (DataAccessException e) {
             e.printStackTrace();
