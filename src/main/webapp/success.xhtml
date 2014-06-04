@@ -1,22 +1,22 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:p="http://primefaces.org/ui">
 <h:head>
     <title>Welcome to Java Beat  for seeing PrimeFaces_Spring_Hibernate_Project</title>
 </h:head>
 <h:body>
+
     
         
-        <p:dataTable id="customers" var="customerMB" value="#{customerMB.customerList.get(0)}">
-        </p:dataTable>
-    
-        <h:form>
-        <p>Success Page</p>
+     <h:form>
+        <h:outputText value="customers : "></h:outputText>
         <table>
             <tr>
                 <td><h:outputLabel for="id" value="Id : " /></td>
-                <td><p:inputText id="id" value="#{customerMB.customerList.get(0).id}">
+                <td><p:inputText id="id" value="#{customerMB.id}">
                     <f:converter converterId="javax.faces.Integer"/>
                     <p:ajax event="blur" update="idMsg" />
                 </p:inputText>
@@ -25,7 +25,7 @@
             </tr>
             <tr>
                 <td><h:outputLabel for="name" value="Name : " /></td>
-                <td><p:inputText id="name" value="#{customerMB.customerList.get(0).name}">
+                <td><p:inputText id="name" value="#{customerMB.name}">
                     <f:validateLength minimum="5" />
                     <p:ajax event="blur" update="nameMsg" />
                 </p:inputText>
@@ -34,7 +34,7 @@
             </tr>
             <tr>
                 <td><h:outputLabel for="surname" value="Surname : " /></td>
-                <td><p:inputText id="surname" value="#{customerMB.customerList.get(0).surname}">
+                <td><p:inputText id="surname" value="#{customerMB.surname}">
                     <f:validateLength minimum="5" />
                     <p:ajax event="blur" update="surnameMsg" />
                 </p:inputText>
@@ -42,15 +42,13 @@
                 </td>
             </tr>
             <tr>
-                <td><p:commandButton id="addUser" value="Add" action="#{customerMB.addCustomer}" ajax="false"/></td>
                 <td><p:commandButton id="updateUser" value="Update" action="#{customerMB.updateCustomer}" ajax="false"/></td>   
-                <td><p:commandButton id="deleteUser" value="Delete" action="#{customerMB.deleteCustomer}" ajax="false"/></td>                  
-                <td><p:commandButton id="reset" value="Reset" action="#{customerMB.reset}" ajax="false"/></td>
+
             </tr>
         </table>
     </h:form>
-    
-    
+                
+ 
     
     
 </h:body>

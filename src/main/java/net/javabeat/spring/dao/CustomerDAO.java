@@ -1,9 +1,11 @@
 package net.javabeat.spring.dao;
  
 import java.util.List;
+
 import net.javabeat.spring.model.Customer;
 
  
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -78,7 +80,8 @@ public class CustomerDAO  {
      */
    
     public Customer getCustomerById(int id) {
-        List list = getSessionFactory().getCurrentSession()
+        @SuppressWarnings("unchecked")
+		List<Customer> list = (List<Customer>) getSessionFactory().getCurrentSession()
                                             .createQuery("from net.javabeat.spring.model.Customer  where id=?")
                                             .setParameter(0, id).list();
         return (Customer)list.get(0);

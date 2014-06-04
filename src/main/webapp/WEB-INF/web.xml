@@ -45,6 +45,12 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	
+<!-- 	allow JSF comments -->
+	<context-param>
+    <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+    <param-value>true</param-value>
+</context-param>
+	
 	<!-- Map these files with JSF -->
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>

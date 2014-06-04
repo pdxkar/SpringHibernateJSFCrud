@@ -55,6 +55,8 @@ public class CustomerManagedBean implements Serializable {
         return customer;
     }
     
+    
+    
     /**
      * Add Customer 
      *
@@ -78,12 +80,20 @@ public class CustomerManagedBean implements Serializable {
      */
     public String updateCustomer() {
         try {
+        	if (getId() > 0 )
+        	{
+        		getCustomerService().updateCustomer(getCustomerById(getId()));
+        	}
+        	else
+        	{
+        		getCustomerService().updateCustomer(getCustomer());
+        	}
 
             System.out.println("on costumer: " + getName() + " " + getSurname());
 
-            getCustomerService().updateCustomer(getCustomer());
 
             return SUCCESS;
+            
         } catch (DataAccessException e) {
             e.printStackTrace();
         }   
@@ -141,6 +151,20 @@ public class CustomerManagedBean implements Serializable {
         return customerService;
     }
 
+    public Customer getCustomerById(int id){
+    	Customer customer = getCustomerService().getCustomerById(id); 
+        customer.setId(getId());
+        customer.setName(getName());
+        customer.setSurname(getSurname());
+    	return customer;
+    }
+    
+    public void loadCustomerForEdit(int id){
+    	Customer customer = getCustomerService().getCustomerById(id);
+    	setId(customer.getId());
+    	setName(customer.getName());
+    	setSurname(customer.getSurname());
+    }
     /**
      * Set Customer Service
      *

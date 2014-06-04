@@ -22,11 +22,21 @@ public class Customer {
     private int id;
     private String name;
     private String surname;
+    private Integer version = 0;
     
-//    @Version
-//    private int version;
+    @Column(name="VERSION")
+    public Integer getVersion() {
+
+		return version;
+	}
+
+    public void setVersion(Integer version){ this.version = version;}
+  
+
     
  
+    
+    
     /**
      * Get Customer Id
      *
