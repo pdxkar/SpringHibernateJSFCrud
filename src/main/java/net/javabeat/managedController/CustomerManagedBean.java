@@ -41,17 +41,28 @@ public class CustomerManagedBean implements Serializable {
     private String surname;
  
     /**
+     * Get this Customer
+     * 
+     * @return Customer - this one
+     */
+    public Customer getCustomer() {
+    	
+    	Customer customer = new Customer();
+        customer.setId(getId());
+        customer.setName(getName());
+        customer.setSurname(getSurname());
+        
+        return customer;
+    }
+    
+    /**
      * Add Customer 
      *
      * @return String - Response Message
      */
     public String addCustomer() {
         try {
-            Customer customer = new Customer();
-            customer.setId(getId());
-            customer.setName(getName());
-            customer.setSurname(getSurname());
-            getCustomerService().addCustomer(customer);
+            getCustomerService().addCustomer(getCustomer());
             return SUCCESS;
         } catch (DataAccessException e) {
             e.printStackTrace();
@@ -67,11 +78,11 @@ public class CustomerManagedBean implements Serializable {
      */
     public String updateCustomer() {
         try {
-            Customer customer = new Customer();
-            customer.setId(getId());
-            customer.setName(getName());
-            customer.setSurname(getSurname());
-            getCustomerService().updateCustomer(customer);
+
+            System.out.println("on costumer: " + getName() + " " + getSurname());
+
+            getCustomerService().updateCustomer(getCustomer());
+
             return SUCCESS;
         } catch (DataAccessException e) {
             e.printStackTrace();

@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Version;
  
 /**
  *
@@ -21,6 +22,9 @@ public class Customer {
     private int id;
     private String name;
     private String surname;
+    
+//    @Version
+//    private int version;
     
  
     /**
