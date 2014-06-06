@@ -13,8 +13,8 @@ import javax.persistence.Transient;
 import net.javabeat.spring.model.Customer;
 import net.javabeat.spring.service.CustomerService;
 
+import org.hibernate.id.uuid.CustomVersionOneStrategy;
 import org.springframework.dao.DataAccessException;
-
 
 /**
  *
@@ -47,9 +47,13 @@ public class CustomerManagedBean implements Serializable {
     /**
      * Get this Customer
      * 
-     * @return Customer - this one
+     * @return Customer
+     * 
+     * when the customer update form is posted, the managed bean fields are populated
+     * getUpdatedCustomer instantiates a Customer bean and populates it with the values
+     * that have been set on the managed bean
      */
-    public Customer getCustomerAfterFormSubmit() {
+    public Customer getUpdatedCustomer() {
     	Customer customer = new Customer();
     	customer.setId(getId());
         customer.setName(getName());
@@ -58,17 +62,20 @@ public class CustomerManagedBean implements Serializable {
         return customer;
     }
     
-    
-    
     /**
      * Add Customer 
      *
      * @return String - Response Message
+     * 
+     * the response message is the name of a view - if SUCCESS is "success", the page
+     * named "success" will be loaded; if success is "index", the index page will
+     * be loaded
      */
     public String addCustomer() {
         try {
-            Customer customer = getCustomerService().addCustomer(getCustomerAfterFormSubmit());
-            return SUCCESS+"?id="+customer.getId();
+            getCustomerService().addCustomer(getUpdatedCustomer());
+            clearCustomerManagedBean();
+            return SUCCESS;
         } catch (DataAccessException e) {
             e.printStackTrace();
         }   
@@ -77,23 +84,37 @@ public class CustomerManagedBean implements Serializable {
     }
     
     /**
+     * @param customer
+     * 
+     * the CustomerManagedBean is the backing bean for the views, so it needs to be
+     * updated with the current values for a customer; when the customer update
+     * form is posted, it contains a version  - after the customer is updated,
+     * the version will have changed, so the CustomerManagedBean must be updated
+     * before it is returned with the view
+     */
+    private void updateCustomerManagedBean(Customer customer) {
+		setId(customer.getId());
+		setName(customer.getName());
+		setSurname(customer.getSurname());
+		setVersion(customer.getVersion());
+	}
+
+
+
+	/**
      * Update Customer 
      *
      * @return String - Response Message
+     * 
+     * update customer updates a customer, and updates CustomerManagedBean
      */
     public String updateCustomer() {
         try {
-			Customer customer = getCustomerService().updateCustomer(getCustomerAfterFormSubmit());
-			setId(customer.getId());
-			setName(customer.getName());
-			setSurname(customer.getSurname());
-			setVersion(customer.getVersion());
-			
+			Customer customer = getCustomerService().updateCustomer(getUpdatedCustomer());
+			updateCustomerManagedBean(customer);
+        
+			return SUCCESS;
 
-            System.out.println("on costumer: " + getName() + " " + getSurname());
-
-            return SUCCESS;
-            
         } catch (DataAccessException e) {
             e.printStackTrace();
         }   
@@ -108,8 +129,9 @@ public class CustomerManagedBean implements Serializable {
      */
     public String deleteCustomer() {
         try {
-            Customer customer = getCustomerAfterFormSubmit();
+            Customer customer = getUpdatedCustomer();
             getCustomerService().deleteCustomer(customer);
+            clearCustomerManagedBean();
             return SUCCESS;
         } catch (DataAccessException e) {
             e.printStackTrace();
@@ -119,15 +141,17 @@ public class CustomerManagedBean implements Serializable {
     }
  
     /**
-     * Reset Fields
-     *
+     * the CustomerManagedBean will by default be populated with the last customer
+     * that was modified; after a user is deleted, the bean must be cleared so an
+     * empty form will be returned
      */
-    public void reset() {
-        this.setId(0);
-        this.setName("");
-        this.setSurname("");
-    }
- 
+    private void clearCustomerManagedBean() {
+		setId(0);
+		setName(null);
+		setSurname(null);
+		setVersion(0);
+	}
+
     /**
      * Get Customer List
      *
@@ -148,20 +172,29 @@ public class CustomerManagedBean implements Serializable {
         return customerService;
     }
 
+    /**
+     * @param id
+     * @return Customer
+     * 
+     * getCustomerById returns the customer associated with the
+     * id passed in
+     */
     public Customer getCustomerById(int id){
-    	Customer customer = getCustomerService().getCustomerById(id); 
-        customer.setId(getId());
-        customer.setName(getName());
-        customer.setSurname(getSurname());
+    	Customer customer = getCustomerService().getCustomerById(id);
+    	updateCustomerManagedBean(customer);
     	return customer;
     }
     
+    /**
+     * @param id
+     * 
+     * loadCustomerForEdit loads the customer associated with the id
+     * passed in, and sets that customer on the CustomerManagedBean to
+     * be edited
+     */
     public void loadCustomerForEdit(int id){
     	Customer customer = getCustomerService().getCustomerById(id);
-    	setId(customer.getId());
-    	setName(customer.getName());
-    	setSurname(customer.getSurname());
-    	setVersion(customer.getVersion());
+    	updateCustomerManagedBean(customer);
     }
     /**
      * Set Customer Service
@@ -235,16 +268,12 @@ public class CustomerManagedBean implements Serializable {
         this.surname = surname;
     }
 
-
-
 	/**
 	 * @return the version
 	 */
 	public int getVersion() {
 		return version;
 	}
-
-
 
 	/**
 	 * @param version the version to set

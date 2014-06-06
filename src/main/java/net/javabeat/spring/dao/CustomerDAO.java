@@ -1,5 +1,6 @@
 package net.javabeat.spring.dao;
  
+import java.io.Serializable;
 import java.util.List;
 
 import net.javabeat.spring.model.Customer;
@@ -46,9 +47,9 @@ public class CustomerDAO  {
      * @param   customer   customer
      */
    
-    public Customer addCustomer(Customer customer) {
-    	customer = (Customer) getSessionFactory().getCurrentSession().save(customer);
-        return customer;
+    public Integer addCustomer(Customer customer) {
+    	Serializable ser = getSessionFactory().getCurrentSession().save(customer);
+    	return 0; 
     }
  
     /**
