@@ -1,9 +1,9 @@
 package net.javabeat.spring.dao;
  
 import java.util.List;
+
 import net.javabeat.spring.model.Customer;
 
- 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -46,8 +46,9 @@ public class CustomerDAO  {
      * @param   customer   customer
      */
    
-    public void addCustomer(Customer customer) {
-        getSessionFactory().getCurrentSession().save(customer);
+    public Customer addCustomer(Customer customer) {
+    	customer = (Customer) getSessionFactory().getCurrentSession().save(customer);
+        return customer;
     }
  
     /**
@@ -66,8 +67,9 @@ public class CustomerDAO  {
      * @param  customer customer 
      */
    
-    public void updateCustomer(Customer customer) {
-        getSessionFactory().getCurrentSession().update(customer);
+    public Customer updateCustomer(Customer customer) {
+    	customer = (Customer) getSessionFactory().getCurrentSession().merge(customer);
+        return customer;
     }
  
     /**
@@ -78,10 +80,12 @@ public class CustomerDAO  {
      */
    
     public Customer getCustomerById(int id) {
-        List list = getSessionFactory().getCurrentSession()
+        @SuppressWarnings("unchecked")
+		List<Customer> list = (List<Customer>) getSessionFactory().getCurrentSession()
                                             .createQuery("from net.javabeat.spring.model.Customer  where id=?")
                                             .setParameter(0, id).list();
-        return (Customer)list.get(0);
+        Customer customer = (Customer)list.get(0);
+        return customer;
     }
  
     /**
@@ -90,8 +94,9 @@ public class CustomerDAO  {
      * @return List - customer list
      */
    
-    public List<Customer> getCustomers() {
-        List list = getSessionFactory().getCurrentSession().createQuery("from net.javabeat.spring.model.Customer").list();
+    @SuppressWarnings("unchecked")
+	public List<Customer> getCustomers() {
+        List<Customer> list = (List<Customer>) getSessionFactory().getCurrentSession().createQuery("from net.javabeat.spring.model.Customer").list();
         return list;
     }
  

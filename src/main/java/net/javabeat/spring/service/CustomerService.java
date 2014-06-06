@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.javabeat.spring.dao.CustomerDAO;
 import net.javabeat.spring.model.Customer;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,8 +33,8 @@ public class CustomerService {
      * @param  customer Customer
      */
     @Transactional(readOnly = false)
-    public void addCustomer(Customer customer) {
-        getCustomerDAO().addCustomer(customer);
+    public Customer addCustomer(Customer customer) {
+        return getCustomerDAO().addCustomer(customer);
     }
  
     /**
@@ -52,8 +53,8 @@ public class CustomerService {
      * @param customer  Customer
      */
     @Transactional(readOnly = false)
-    public void updateCustomer(Customer customer) {
-        getCustomerDAO().updateCustomer(customer);
+    public Customer updateCustomer(Customer customer) {
+        return (Customer) getCustomerDAO().updateCustomer(customer);
     }
  
     /**
@@ -92,4 +93,5 @@ public class CustomerService {
     public void setCustomerDAO(CustomerDAO customerDAO) {
         this.customerDAO = customerDAO;
     }
+
 }
