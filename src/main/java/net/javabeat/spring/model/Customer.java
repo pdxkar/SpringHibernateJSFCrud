@@ -19,7 +19,7 @@ import javax.persistence.Version;
  *
  */
 @Entity
-@Table(name="CUSTOMER")
+@Table(name="CUSTOMERS")
 public class Customer {
  
     private int id;
@@ -47,7 +47,7 @@ public class Customer {
      * @return int - Customer Id
      */
     @Id
-    @Column(name="ID", unique = true, nullable = false)
+    @Column(name="CUSTOMER_ID", unique = true, nullable = false)
     public int getId() {
         return id;
     }
@@ -66,7 +66,7 @@ public class Customer {
      *
      * @return String - Customer Name
      */
-    @Column(name="NAME", unique = true, nullable = false)
+    @Column(name="CUST_FIRST_NAME", unique = true, nullable = false)
     public String getName() {
         return name;
     }
@@ -85,7 +85,7 @@ public class Customer {
      *
      * @return String - Customer Surname
      */
-    @Column(name="SURNAME", unique = true, nullable = false)
+    @Column(name="CUST_LAST_NAME", unique = true, nullable = false)
     public String getSurname() {
         return surname;
     }

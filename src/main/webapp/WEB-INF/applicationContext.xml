@@ -16,10 +16,11 @@
 
     <!-- Data Source Declaration -->
     <bean id="DataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-        <property name="driverClass" value="com.mysql.jdbc.Driver" />
-        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/customer" />
-        <property name="user" value="root" />
-        <property name="password" value="root" />
+        <property name="driverClass" value="oracle.jdbc.OracleDriver" />
+        <property name="jdbcUrl" value="jdbc:oracle:thin:admin/admin@//192.168.0.68:1521/XE" />
+<!--         <property name="user" value="admin" />
+        <property name="password" value="admin" /> -->
+<!--         <property name="hibernate.default_schema" value="ADMIN"/> -->
         <property name="maxPoolSize" value="2" />
         <property name="maxStatements" value="0" />
         <property name="minPoolSize" value="1" />
@@ -40,7 +41,7 @@
         </property>
         <property name="hibernateProperties">
             <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
                 <prop key="hibernate.show_sql">true</prop>
             </props>
         </property>
