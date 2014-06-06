@@ -14,6 +14,11 @@
         </param-value>
     </context-param>
 
+	<context-param>
+	    <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+	    <param-value>.xhtml</param-value>
+	</context-param>
+
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
@@ -39,6 +44,12 @@
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	
+<!-- 	allow JSF comments -->
+	<context-param>
+    <param-name>javax.faces.FACELETS_SKIP_COMMENTS</param-name>
+    <param-value>true</param-value>
+</context-param>
 	
 	<!-- Map these files with JSF -->
 	<servlet-mapping>
