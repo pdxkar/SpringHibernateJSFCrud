@@ -1,9 +1,12 @@
-package net.javabeat.spring.model;
+	package net.javabeat.spring.model;
  
+import java.util.UUID;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.persistence.Version;
  
 /**
@@ -22,8 +25,9 @@ public class Customer {
     private int id;
     private String name;
     private String surname;
-    private Integer version = 0;
+    private Integer version;
     
+    @Version
     @Column(name="VERSION")
     public Integer getVersion() {
 
@@ -93,9 +97,29 @@ public class Customer {
      */
     public void setSurname(String surname) {
         this.surname = surname;
-    }   
+    }
+    
+    public Customer()
+    {
+    	
+    }
+    
+    public Customer(String name, String surname)
+    {
+    	this.name = name;
+    	this.surname = surname;
+    	
+    }
+    
+    public Customer(int id,String name,String surname,int version)
+    {
+    	this.id = id;
+    	this.name = name;
+    	this.surname = surname;
+    	this.version = version;
+    }
  
-    @Override
+	@Override
     public String toString() {
         StringBuffer strBuff = new StringBuffer();
         strBuff.append("id : ").append(getId());

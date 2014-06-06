@@ -13,10 +13,17 @@
 
      
     
+            #{customerMB.id}
     <h:form>
     <p>Index Page</p>
         <table>
-
+            <tr>
+                <td><h:outputLabel for="version" value="Version : " /></td>
+                <td><p:inputText id="version" value="#{customerMB.version}">
+                </p:inputText>
+                    <p:message id="versionMg" for="version" display="icon"/>
+                </td>
+            </tr>        
             <tr>
                 <td><h:outputLabel for="id" value="Id : " /></td>
                 <td><p:inputText id="id" value="#{customerMB.id}">
