@@ -112,8 +112,16 @@ public class CustomerManagedBean implements Serializable {
         try {
 			Customer customer = getCustomerService().updateCustomer(getUpdatedCustomer());
 			updateCustomerManagedBean(customer);
-        
-			return SUCCESS;
+
+			if (customer == null){
+
+				return ERROR;
+			}
+			
+			else{
+
+				return SUCCESS;
+			}
 
         } catch (DataAccessException e) {
             e.printStackTrace();

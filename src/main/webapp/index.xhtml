@@ -13,18 +13,18 @@
 
      
     
-            #{customerMB.id}
+<!--             #{customerMB.id} -->
     <h:form>
-    <p>Index Page</p>
+    <p>Update #{customerMB.name}'s name:</p>
         <table>
-            <tr>
+            <tr style="display:none;">
                 <td><h:outputLabel for="version" value="Version : " /></td>
                 <td><p:inputText id="version" value="#{customerMB.version}">
                 </p:inputText>
                     <p:message id="versionMg" for="version" display="icon"/>
                 </td>
             </tr>        
-            <tr>
+            <tr style="display:none;">
                 <td><h:outputLabel for="id" value="Id : " /></td>
                 <td><p:inputText id="id" value="#{customerMB.id}">
                     <f:converter converterId="javax.faces.Integer"/>

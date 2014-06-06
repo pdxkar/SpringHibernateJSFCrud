@@ -1,5 +1,6 @@
 package net.javabeat.spring.service;
  
+import java.sql.SQLException;
 import java.util.List;
 
 import net.javabeat.spring.dao.CustomerDAO;
@@ -54,7 +55,18 @@ public class CustomerService {
      */
     @Transactional(readOnly = false)
     public Customer updateCustomer(Customer customer) {
-        return (Customer) getCustomerDAO().updateCustomer(customer);
+    	
+    	try{
+    	
+    		customer = getCustomerDAO().updateCustomer(customer);
+    	}
+    	
+    	catch(SQLException e){
+    		
+    		customer = null;
+    	}
+    	
+    	return customer;
     }
  
     /**

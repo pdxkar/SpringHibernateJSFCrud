@@ -1,6 +1,7 @@
 package net.javabeat.spring.dao;
  
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.List;
 
 import net.javabeat.spring.model.Customer;
@@ -68,8 +69,10 @@ public class CustomerDAO  {
      * @param  customer customer 
      */
    
-    public Customer updateCustomer(Customer customer) {
+    public Customer updateCustomer(Customer customer) throws SQLException {
+    	
     	customer = (Customer) getSessionFactory().getCurrentSession().merge(customer);
+    	
         return customer;
     }
  
