@@ -33,8 +33,8 @@ public class CustomerService {
      * @param  customer Customer
      */
     @Transactional(readOnly = false)
-    public Customer addCustomer(Customer customer) {
-        return getCustomerDAO().addCustomer(customer);
+    public void addCustomer(Customer customer) {
+    	getCustomerDAO().addCustomer(customer);
     }
  
     /**
