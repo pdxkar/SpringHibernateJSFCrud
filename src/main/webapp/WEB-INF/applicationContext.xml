@@ -10,7 +10,7 @@
 	    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd"
         >
 
-    <context:component-scan base-package="net.javabeat.spring"/>
+    <context:component-scan base-package="spring"/>
     <context:annotation-config/>
     <context:spring-configured/>
 
@@ -29,14 +29,14 @@
     <!-- Session Factory Declaration -->
     <bean id="SessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
         <property name="dataSource" ref="DataSource" />
-       <!-- <property name="packagesToScan">
+<!--        <property name="packagesToScan">
             <list>
-                <value>net.javabeat.spring.model</value>
+                <value>dao</value>
             </list>
-        </property>-->
+        </property> -->
         <property name="annotatedClasses">
             <list>
-                <value>net.javabeat.spring.model.Customer</value>
+                <value>spring.model.Guest</value>
             </list>
         </property>
         <property name="hibernateProperties">

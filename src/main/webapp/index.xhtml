@@ -2,58 +2,29 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:c="http://java.sun.com/jsp/jstl/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+      
 
-<h:head><title>Welcome to Java Beat  for seeing PrimeFaces_Spring_Hibernate_Project</title></h:head>
+<h:head>
+	<title>Welcome to Java Beat  for seeing PrimeFaces_Spring_Hibernate_Project</title>
+	<script src="js/index.js" type="text/javascript"></script>
+</h:head>
 <h:body>
 
-    <c:if test="${!empty param.id}">
-      #{customerMB.loadCustomerForEdit(param.id)} 
-    </c:if>
-
-     
-    
-<!--             #{customerMB.id} -->
     <h:form>
-    <p>Update #{customerMB.name}'s name:</p>
+    <p>Guest List</p>
         <table>
-            <tr style="display:none;">
-                <td><h:outputLabel for="version" value="Version : " /></td>
-                <td><p:inputText id="version" value="#{customerMB.version}">
-                </p:inputText>
-                    <p:message id="versionMg" for="version" display="icon"/>
-                </td>
-            </tr>        
-            <tr style="display:none;">
-                <td><h:outputLabel for="id" value="Id : " /></td>
-                <td><p:inputText id="id" value="#{customerMB.id}">
-                    <f:converter converterId="javax.faces.Integer"/>
-                </p:inputText>
-                    <p:message id="idMsg" for="id" display="icon"/>
-                </td>
-            </tr>
-            <tr>
-                <td><h:outputLabel for="name" value="Name : " /></td>
-                <td><p:inputText id="name" value="#{customerMB.name}">
-                    <f:validateLength minimum="5" />
-                </p:inputText>
-                    <p:message id="nameMsg" for="name" display="icon"/>
-                </td>
-            </tr>
-            <tr>
-                <td><h:outputLabel for="surname" value="Surname : " /></td>
-                <td><p:inputText id="surname" value="#{customerMB.surname}">
-                    <f:validateLength minimum="5" />
-                </p:inputText>
-                    <p:message id="surnameMsg" for="surname" display="icon"/>
-                </td>
-            </tr>
-            <tr>
-                <td><p:commandButton id="addUser" value="Add" action="#{customerMB.addCustomer}" ajax="false"/></td>
-                <td><p:commandButton id="updateUser" value="Update" action="#{customerMB.updateCustomer}" ajax="false"/></td>   
-                <td><p:commandButton id="deleteUser" value="Delete" action="#{customerMB.deleteCustomer}" ajax="false"/></td>                  
-                <td><p:commandButton id="reset" value="Reset" action="#{customerMB.reset}" ajax="false"/></td>
-            </tr>
+		   <ui:repeat var="g" value="#{guest.getGuestList()}" varStatus="status">
+		 
+			<tr>
+				<td>#{g.name}</td>
+				<td>#{g.surname}</td>
+				<td><h:button value="Update" outcome="update.xhtml?id=#{g.id}" /></td>
+				<td><p:commandButton id="deleteUser" value="Delete" action="#{guest.deleteGuest}" ajax="false"/></td>   
+			</tr>
+		 
+		   </ui:repeat>
         </table>
     </h:form>
 </h:body>
