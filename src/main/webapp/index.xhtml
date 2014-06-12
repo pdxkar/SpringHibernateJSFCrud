@@ -15,17 +15,38 @@
     <h:form>
     <p>Guest List</p>
         <table>
-		   <ui:repeat var="g" value="#{guest.getGuestList()}" varStatus="status">
-		 
+		   <ui:repeat var="g" value="#{guestMB.getGuestList()}" varStatus="status">
 			<tr>
 				<td>#{g.name}</td>
 				<td>#{g.surname}</td>
 				<td><h:button value="Update" outcome="update.xhtml?id=#{g.id}" /></td>
-				<td><p:commandButton id="deleteUser" value="Delete" action="#{guest.deleteGuest}" ajax="false"/></td>   
+				<td><p:commandButton id="deleteUser" value="Remove" action="#{guestMB.deleteGuest(g.id)}" ajax="false"/></td>   
 			</tr>
-		 
+
 		   </ui:repeat>
         </table>
+    </h:form>
+    <h:form>
+        <table>     
+            <tr>
+                <td><h:outputLabel for="name" value="Name : " /></td>
+                <td><p:inputText id="name" value="#{guestMB.name}">
+                    <f:validateLength minimum="1" />
+                </p:inputText>
+                    <p:message id="nameMsg" for="name" display="icon"/>
+                </td>
+            </tr>
+            <tr>
+                <td><h:outputLabel for="surname" value="Surname : " /></td>
+                <td><p:inputText id="surname" value="#{guestMB.surname}">
+                    <f:validateLength minimum="1" />
+                </p:inputText>
+                    <p:message id="surnameMsg" for="surname" display="icon"/>
+                </td>
+            </tr>
+
+        </table>
+        <p:commandButton id="addUser" value="Sign The Guestbook!" action="#{guestMB.addGuest()}" ajax="false"/>
     </h:form>
 </h:body>
 </html> 
